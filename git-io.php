@@ -1,8 +1,17 @@
 <?php
 
+/**
+ * URL API
+ */
+
     $talkContent = "";
     $url         = addslashes($_POST['url']);
 
+    /**
+     * 发送请求
+     * @param $url       链接
+     * @param $post_data 请求数据
+     */
     function send_post($url, $post_data) {
 
         $postdata = http_build_query($post_data);  
@@ -25,13 +34,13 @@
         $post_data   = array('url' => "https://renbaoshuo.github.io/git.io/jump.html?url=" . $url );
         $talkContent = send_post('https://git.io/create', $post_data);
 
-        header('text/html; charset=utf-8');
+        header('text/plain; charset=utf-8');
         header('Access-Control-Allow-Origin: *');
 
         echo $talkContent;
     } else {
         header('HTTP/1.1 500 Internal Server Error');
-        header('text/html; charset=utf-8');
+        header('text/plain; charset=utf-8');
         header('Access-Control-Allow-Origin: *');
 
         echo "Invalid url: " . $url;
